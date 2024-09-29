@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "memeIdUniqueIndex" ON "favorite_count" USING btree ("memeId");

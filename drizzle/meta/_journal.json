@@ -15,6 +15,20 @@
       "when": 1727588837089,
       "tag": "0001_demonic_killraven",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1727592289727,
+      "tag": "0002_goofy_bucky",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1727592660576,
+      "tag": "0003_heavy_shriek",
+      "breakpoints": true
     }
   ]
 }

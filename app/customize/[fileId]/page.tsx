@@ -15,6 +15,7 @@ const CustomizePage = async ({params}:{params:{fileId:string}}) => {
           fileId: file.fileId,
           name: file.name,
         }}
+        isAuthenticated={!!session}
         isFavorited={isFavorited}
       />
     </div>
