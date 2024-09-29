@@ -21,7 +21,7 @@ const TextOverlay = ({
     bgColor?: string
   ) => void;
 }) => {
-  const [textOverlay, setTextOverlay] = useState("HELLO WORLD");
+  const [textOverlay, setTextOverlay] = useState("");
   const [textOverlayXPosition, setTextOverlayXPosition] = useState(0);
   const [textOverlayYPosition, setTextOverlayYPosition] = useState(0);
   const [applyTextBackground, setApplyTextBackground] = useState(false);
@@ -32,7 +32,7 @@ const TextOverlay = ({
   const xPositionDecimal = textOverlayXPosition / 100;
   const yPositionDecimal = textOverlayYPosition / 100;
   useEffect(() => {
-    onUpdate(index, textOverlay, xPositionDecimal, yPositionDecimal, bgColor);
+    onUpdate(index, textOverlay??" ", xPositionDecimal, yPositionDecimal, bgColor);
   }, [
     index,
     textOverlay,
@@ -53,7 +53,7 @@ const TextOverlay = ({
               setTextOverlay(e.target.value);
               onUpdate(
                 index,
-                textOverlay,
+                textOverlay??" ",
                 xPositionDecimal,
                 yPositionDecimal,
                 applyTextBackground ? textbgColor.replace("#", "") : undefined
@@ -69,7 +69,7 @@ const TextOverlay = ({
                 setApplyTextBackground(v as boolean);
                 onUpdate(
                   index,
-                  textOverlay,
+                  textOverlay??" ",
                   xPositionDecimal,
                   yPositionDecimal,
                   applyTextBackground ? textbgColor.replace("#", "") : undefined

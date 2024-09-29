@@ -13,13 +13,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-import { Download, Heart } from "lucide-react";
+import { Download } from "lucide-react";
 import Effects from "./Effects";
-import { favoriteMeme } from "@/actions/Meme.actions";
+
+import FavoriteButton from "../buttons/FavoriteButton";
 const CustomizePanel = ({
   file,
+  isFavorited,
+  isAuthenticated
 }: {
-  file: Pick<FileObject, "filePath" | "fileId" | "name">;
+  file: Pick<FileObject, "filePath" | "fileId" | "name">,
+  isFavorited:boolean,
+  isAuthenticated:boolean
 }) => {
   const [textTransformations, setTextTransformations] = useState<
     Record<string, { raw: string }>
@@ -58,49 +63,42 @@ const CustomizePanel = ({
     <>
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bold">Customize</h1>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                onClick={async () => {
-                  const image = document.querySelector("#meme img");
-                  const src = image?.getAttribute("src");
-                  if (!src) return;
-                  const response = await fetch(src);
-                  const imageBlob = await response.blob();
-                  const imageUrl = URL.createObjectURL(imageBlob);
-                  const a = document.createElement("a");
-                  a.href = imageUrl;
-                  a.download = file.name;
-                  a.click();
-                }}
-              >
-                <Download />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Download Image</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <form
-                action={async () => {
-                  await favoriteMeme(file.fileId);
-                }}
-              >
-                <Button type="submit" variant={"outline"}>
-                  <Heart />
+        <div className="flex gap-4 justify-end">
+          {isAuthenticated && (
+            <FavoriteButton
+              isFavorited={isFavorited}
+              fileId={file.fileId}
+              filePath={file.filePath}
+              pathToRevalidate={`/customize/${file.fileId}`}
+            />
+          )}
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={async () => {
+                    const image = document.querySelector("#meme img");
+                    const src = image?.getAttribute("src");
+                    if (!src) return;
+                    const response = await fetch(src);
+                    const imageBlob = await response.blob();
+                    const imageUrl = URL.createObjectURL(imageBlob);
+                    const a = document.createElement("a");
+                    a.href = imageUrl;
+                    a.download = file.name;
+                    a.click();
+                  }}
+                >
+                  <Download />
                 </Button>
-              </form>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Favorite Meme</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Download Image</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-4">

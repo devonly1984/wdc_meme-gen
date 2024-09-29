@@ -1,6 +1,6 @@
 import { imagekit } from "@/app/lib/imagekit";
-import ResultsList from "@/components/shared/ResultsList";
-import UploadMemeButton from "@/components/shared/UploadMemeButton";
+import ResultsList from "@/components/lists/ResultsList";
+import UploadMemeButton from "@/components/buttons/UploadMemeButton";
 
 import { unstable_noStore } from "next/cache";
 
